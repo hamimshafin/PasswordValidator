@@ -44,17 +44,17 @@ def default_validator():
 
 def advance_validator():
     passwords = ("AAbb12!*", "Abb12!*", "AAb12!*", "AAbb!*", "AAbb12!", "b!")
-    apv = AdvPasswordValidator()
+    pv = PasswordValidator()
 
     # For loop for each password
-    for apv in passwords:
+    for p in passwords:
         # Check if the password is valid using the PasswordValidator object
-        if apv.is_valid(p):
+        if pv.is_valid(p):
             # If valid, print a message
-            print(f'{apv} is a valid password')
+            print(f'{pv} is a valid password')
         else:
             # If invalid, display errors
-            display_errors(apv)
+            display_errors(pv)
 
         print()
 

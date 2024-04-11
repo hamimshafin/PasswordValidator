@@ -1,4 +1,5 @@
 from password_validator import PasswordValidator
+from password_exception import PasswordException
 
 
 class AdvPasswordValidator(PasswordValidator):
@@ -6,7 +7,7 @@ class AdvPasswordValidator(PasswordValidator):
     This class inherits from PasswordValidator and adds additional validation rules.
 
     """
-    def __init__(self, lowercase_min=2, uppercase_min=2, digit_min=2, symbol_min=2, min_length=8):
+    def __init__(self, lowercase_min=2, uppercase_min=2, digit_min=2, symbol_min=2, min_length=8, max_length=32):
         """
         Initialize an AdvPasswordValidator object with specified criteria.
         :param lowercase_min: The minimum required lowercase characters in the password.
@@ -16,7 +17,8 @@ class AdvPasswordValidator(PasswordValidator):
         :param min_length: The minimum length required for the password. Default is 8.
         """
         super().__init__(lowercase_min, uppercase_min, digit_min, symbol_min)
-        _min_length = min_length
+        self._min_length = min_length
+        self._max_length = max_length
 
     def __is_min_length(self):
         """
@@ -24,7 +26,19 @@ class AdvPasswordValidator(PasswordValidator):
 
         :return: None
         """
+        if len(self._password) < self._min_length:
+            error = f"Password length must be at least {self._min_length} characters"
+            raise PasswordException(error, self._password)
 
+    def __is_max_length(self):
+        """
+        Checks to see if password meets minimum length requirement
+
+        :return: None
+        """
+        if len(self._password) > self._max_length:
+            error = f"Password length must be less than {self._max_length} characters"
+            raise PasswordException(error, self._password)
 
     def is_valid(self, password):
         """
@@ -39,3 +53,4 @@ class AdvPasswordValidator(PasswordValidator):
         self._password = password
         self.is_valid(password)
         self.__is_min_length()
+        self.__is_max_length()

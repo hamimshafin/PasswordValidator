@@ -57,7 +57,7 @@ class PasswordValidator():
         :return: None
         """
         # Count the number of symbols in the password
-        symbol_count = sum(1 for char in self._password if not char.isalnum())
+        symbol_count = sum(1 for char in self._password if not char.isalnum() and not char.isspace())
 
         # Check if the count is less than the required minimum
         if symbol_count < self._symbol_min:
@@ -105,8 +105,20 @@ class PasswordValidator():
 
         try:
             self.__validate_lower_case()
+        except PasswordException as e:
+            self._errors.append(e)
+
+        try:
             self.__validate_upper_case()
+        except PasswordException as e:
+            self._errors.append(e)
+
+        try:
             self.__validate_symbol()
+        except PasswordException as e:
+            self._errors.append(e)
+
+        try:
             self.__validate_digit()
         except PasswordException as e:
             self._errors.append(e)
