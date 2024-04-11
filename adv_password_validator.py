@@ -54,3 +54,5 @@ class AdvPasswordValidator(PasswordValidator):
         self.is_valid(password)
         self.__is_min_length()
         self.__is_max_length()
+
+        return len(self.get_errors()) == 0
