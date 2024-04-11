@@ -49,10 +49,26 @@ class AdvPasswordValidator(PasswordValidator):
         """
 
         super().is_valid(password)
-
         self._password = password
-        self.is_valid(password)
-        self.__is_min_length()
-        self.__is_max_length()
 
-        return len(self.get_errors()) == 0
+        self._errors.clear()
+
+        try:
+            self.__is_min_length()
+        except PasswordException as e:
+            self._errors.append(e)
+
+        try:
+            self.__is_max_length()
+        except PasswordException as e:
+            self._errors.append(e)
+
+        if len(self._errors) == 0:
+            return True
+        else:
+            return False
+
+
+
+
+

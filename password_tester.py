@@ -67,7 +67,7 @@ def advance_validator():
         # Check if the password is valid using the PasswordValidator object
         if apv.is_valid(p):
             # If valid, print a message
-            print(f'{apv} is a valid password')
+            print(f'{p} is a valid password')
         else:
             # If invalid, display errors
             display_errors(apv)
