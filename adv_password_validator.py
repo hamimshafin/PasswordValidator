@@ -7,7 +7,7 @@ class AdvPasswordValidator(PasswordValidator):
     This class inherits from PasswordValidator and adds additional validation rules.
 
     """
-    def __init__(self, lowercase_min=2, uppercase_min=2, digit_min=2, symbol_min=2, min_length=8, max_length=32, specific_symbol=('@', '#', '$')):
+    def __init__(self, lowercase_min=2, uppercase_min=2, digit_min=2, symbol_min=2, min_length=8, max_length=32):
         """
         Initialize an AdvPasswordValidator object with specified criteria.
         :param lowercase_min: The minimum required lowercase characters in the password.
@@ -19,7 +19,7 @@ class AdvPasswordValidator(PasswordValidator):
         super().__init__(lowercase_min, uppercase_min, digit_min, symbol_min)
         self._min_length = min_length
         self._max_length = max_length
-        self._specific_symbol = specific_symbol
+        self._symbol_min = symbol_min
 
     def __is_min_length(self):
         """
@@ -41,14 +41,14 @@ class AdvPasswordValidator(PasswordValidator):
             error = f"Password length must be less than {self._max_length} characters"
             raise PasswordException(error, self._password)
 
-    def __is_specific_symbol(self):
+    def __is_symbol_min(self):
         """
-        Checks to see if password has specific symbols
+        Checks to see if password has enough specific symbols
 
         :return: None
         """
-        if self._password != self._specific_symbol:
-            error = f"Password length must be {self._specific_symbol} characters"
+        if len(self._password) < self._symbol_min:
+            error = f"Password length must be {self._symbol_min} characters"
             raise PasswordException(error, self._password)
 
     def is_valid(self, password):
@@ -75,7 +75,7 @@ class AdvPasswordValidator(PasswordValidator):
             self._errors.append(e)
 
         try:
-            self.__is_specific_symbol()
+            self.__is_symbol_min()
         except PasswordException as e:
             self._errors.append(e)
 
@@ -83,8 +83,3 @@ class AdvPasswordValidator(PasswordValidator):
             return True
         else:
             return False
-
-
-
-
-

@@ -1,7 +1,7 @@
 from password_exception import PasswordException
 
 
-class PasswordValidator():
+class PasswordValidator:
     """
     A class for validating passwords based on specified criteria.
 

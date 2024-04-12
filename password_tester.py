@@ -18,22 +18,6 @@ def display_errors(pv):
         print(e)
 
 
-def display_errors_adv(apv):
-    """
-    Display the errors found in the provided PasswordValidator object.
-
-    :param apv: apv (PasswordValidator): The PasswordValidator object containing the password validation results.
-    :return: None
-    """
-    # Print a message indicating that the password is invalid
-    print(f'{apv} is an invalid password')
-
-    # For loop for each error
-    for e in apv.get_errors():
-        # Print each error message
-        print(e)
-
-
 def default_validator():
     """
     This function validates a set of default passwords using a PasswordValidator object.
