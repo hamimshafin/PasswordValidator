@@ -1,5 +1,13 @@
 from password_validator import PasswordValidator
 from adv_password_validator import AdvPasswordValidator
+'''
+Password Validator 
+It detects the errors found in the provided Password Validator object
+'''
+__author__ = 'Hamim Shafin'
+__version__ = '2.0'
+__copyright__ = "No Copyright"
+__github__ = "https://github.com/hamimshafin/PasswordValidator"
 
 
 def display_errors(pv):
